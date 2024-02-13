@@ -23,7 +23,6 @@ def song_bg(song_name):
     correct_song_name = song_name[0].upper() + song_name[1:]
     print(correct_song_name)
 
-    xpath = f"//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{correct_song_name.lower()}')]"
-    link = driver.find_element(By.XPATH, xpath)
+    link = driver.find_element(By.PARTIAL_LINK_TEXT, correct_song_name)
 
     link.click()
