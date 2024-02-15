@@ -1,6 +1,7 @@
 import gui
 import spotifyAPI
 import webcrawling
+import helpers
 
 def artist_button_push():
     for widget in gui.central_frame.winfo_children():
@@ -29,7 +30,13 @@ def song_button_push():
         widget.destroy()
 
     song_name = gui.search_textbox.get()
-    webcrawling.song_bg(song_name)
+
+    if(helpers.is_cyrillic_or_latin(song_name) == "Cyrillic"):
+        webcrawling.song_bg(song_name)
+    elif(helpers.is_cyrillic_or_latin(song_name) == "Latin"):
+        webcrawling.song_en(song_name)
+    else:
+        print("song name doesn't start with a letter, fix later:D")
 
 
     

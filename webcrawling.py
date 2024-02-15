@@ -5,12 +5,15 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options 
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import helpers
+import time
 
 def song_bg(song_name):
     options = Options()
     options.add_experimental_option("detach", True)
-    options.add_extension("./uBlock-Origin.crx")
+    options.add_extension("./AdBlock.crx")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                           options=options)
@@ -25,6 +28,64 @@ def song_bg(song_name):
     correct_song_name = song_name[0].upper() + song_name[1:]
     print(correct_song_name)
 
-    link = driver.find_element(By.LINK_TEXT, correct_song_name)
+    try:
+        link = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, correct_song_name))
+        )
+        link.click()
+    except Exception:
+        print("song not found or error occured while trying to find it")
 
-    link.click()
+    time.sleep(15)
+    driver.quit()
+    
+
+def song_en(song_name):
+    correct_song_name = helpers.capitalize_after_space(song_name)
+    options = Options()
+    options.add_experimental_option("detach", True)
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
+                            options=options)
+
+    driver.get("https://www.ultimate-guitar.com/")
+    driver.maximize_window()
+
+    agree_button = driver.find_element(By.XPATH,'//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')
+    agree_button.click()
+
+    try:
+        textbox = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,'value'))
+        )
+        textbox.send_keys(correct_song_name)
+        textbox.send_keys(Keys.RETURN)
+        print("Page loaded successfully!")
+    except Exception:
+        print("search error")
+
+    try:
+        chords_button = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.LINK_TEXT,"Chords"))
+        )
+        chords_button.click()
+    except Exception:
+        print("chords button click error")
+
+    links = driver.find_elements(By.LINK_TEXT,correct_song_name)
+    if len(links) <= 1:
+        links[0].click()
+    else:
+        links[1].click()
+
+    try:
+        agree_button2 = WebDriverWait(driver,5).until(
+            EC.presence_of_element_located((By.CLASS_NAME,'css-197f1ny'))
+        )
+        agree_button2.click()
+    except Exception:
+        print("second agree button click error")
+
+    time.sleep(6)
+    driver.quit()
+
