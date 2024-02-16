@@ -8,12 +8,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import helpers
-import time
 
 def song_bg(song_name):
     options = Options()
     options.add_experimental_option("detach", True)
     options.add_extension("./AdBlock.crx")
+    options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                           options=options)
@@ -36,14 +36,18 @@ def song_bg(song_name):
     except Exception:
         print("song not found or error occured while trying to find it")
 
-    time.sleep(15)
+    current_url = driver.current_url
     driver.quit()
+    return current_url
+
     
 
 def song_en(song_name):
     correct_song_name = helpers.capitalize_after_space(song_name)
     options = Options()
     options.add_experimental_option("detach", True)
+    options.add_extension("uBlock-Origin.crx")
+    #options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                             options=options)
@@ -65,9 +69,10 @@ def song_en(song_name):
         print("search error")
 
     try:
-        chords_button = WebDriverWait(driver,10).until(
+        chords_button = WebDriverWait(driver,15).until(
             EC.presence_of_element_located((By.LINK_TEXT,"Chords"))
         )
+        chords_button.click()
         chords_button.click()
     except Exception:
         print("chords button click error")
@@ -86,6 +91,7 @@ def song_en(song_name):
     except Exception:
         print("second agree button click error")
 
-    time.sleep(6)
+    source = driver.page_source
     driver.quit()
+    return source
 

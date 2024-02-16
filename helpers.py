@@ -14,3 +14,9 @@ def is_cyrillic_or_latin(text):
         elif latin_range[0] <= char_code <= latin_range[1]:
             return "Latin"
     return "Unknown"
+
+def find_first_letter_index(s):
+    for i, char in enumerate(s):
+        if char.isalpha():
+            return i
+    return -1  
