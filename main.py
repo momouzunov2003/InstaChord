@@ -38,10 +38,18 @@ def artist_button_push():
 
         if(helpers.is_cyrillic_or_latin(song_name) == "Cyrillic"):
             text = (tripeSoup.get_song_text_and_chords_bg(webcrawling.song_bg(song_name)))
-            text_label = gui.customtkinter.CTkLabel(central_frame2,
-                                                    text=text,text_color='white',
-                                                    font=('',15))
-            text_label.pack()
+            if len(text) == 0:
+                text_label = gui.customtkinter.CTkLabel(central_frame2,
+                                                        text="Song could not be found! Please try again!",
+                                                        text_color='white',
+                                                        font=('',15))
+                text_label.pack()
+            else:
+                text_label = gui.customtkinter.CTkLabel(central_frame2,
+                                                        text=text,
+                                                        text_color='white',
+                                                        font=('',15))
+                text_label.pack()
         elif(helpers.is_cyrillic_or_latin(song_name) == "Latin"):
             text2 = tripeSoup.get_song_text_and_chords_en((webcrawling.song_en(song_name)))
             text_label = gui.customtkinter.CTkLabel(central_frame2,

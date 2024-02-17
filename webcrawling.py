@@ -46,7 +46,7 @@ def song_en(song_name):
     correct_song_name = helpers.capitalize_after_space(song_name)
     options = Options()
     options.add_experimental_option("detach", True)
-    options.add_extension("uBlock-Origin.crx")
+    #options.add_extension("uBlock-Origin.crx")
     #options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
@@ -74,9 +74,9 @@ def song_en(song_name):
         )
         chords_button.click()
         chords_button.click()
-    except Exception:
-        print("chords button click error")
-
+    except Exception as e:
+        print("chords button click error", e)
+                              
     links = driver.find_elements(By.LINK_TEXT,correct_song_name)
     if len(links) <= 1:
         links[0].click()

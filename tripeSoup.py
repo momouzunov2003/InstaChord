@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from lxml import etree 
 from requests import get
 
 def get_song_text_and_chords_bg(url):
