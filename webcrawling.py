@@ -7,7 +7,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 import helpers
+import time
 
 def song_bg(song_name):
     options = Options()
@@ -69,15 +71,18 @@ def song_en(song_name):
         print("search error")
 
     try:
+        time.sleep(5)
         chords_button = WebDriverWait(driver,15).until(
             EC.presence_of_element_located((By.LINK_TEXT,"Chords"))
-        )
-        chords_button.click()
+        )     
         chords_button.click()
     except Exception as e:
         print("chords button click error", e)
                               
     links = driver.find_elements(By.LINK_TEXT,correct_song_name)
+    if not links:
+        raise NoSuchElementException
+    
     if len(links) <= 1:
         links[0].click()
     else:
