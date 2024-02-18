@@ -7,12 +7,12 @@ def get_song_text_and_chords_bg(url):
     page.encoding = 'utf-8'
     tripe_soup = BeautifulSoup(page.text, 'html.parser')
 
-    song_title_and_artist = tripe_soup.find(id ='SongHeader')
+    song_title_and_artist = tripe_soup.find(id='SongHeader')
     if song_title_and_artist == None:
         raise NoSuchElementException
     
     song_title_and_artist = song_title_and_artist.text
-    song = tripe_soup.find('div', class_ = 'Song').text
+    song = tripe_soup.find('div', class_='Song').text
 
     return song_title_and_artist + song
 

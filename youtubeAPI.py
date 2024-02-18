@@ -11,4 +11,4 @@ def get_youtube_link(song_name):
     result = get(query)
     json_result = json.loads(result.content)
     id = json_result['items'][0]['id']['videoId']
-    return f"https://www.youtube.com/watch?v=${id}"
+    return f"https://www.youtube.com/watch?v={id}"

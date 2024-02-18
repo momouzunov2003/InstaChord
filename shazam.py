@@ -8,4 +8,4 @@ def get_song_name(path):
     return out['track']['title']
 
   loop = asyncio.get_event_loop()
-  return(loop.run_until_complete(main()))
+  return loop.run_until_complete(main())

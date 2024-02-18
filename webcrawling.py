@@ -18,12 +18,12 @@ def song_bg(song_name):
     options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
-                          options=options)
+                              options=options)
 
     driver.get("https://www.akordite.com/index.php")
     driver.maximize_window()
 
-    textbox = driver.find_element(By.ID,"mod_search_searchword")
+    textbox = driver.find_element(By.ID, "mod_search_searchword")
     textbox.send_keys(song_name)
     textbox.send_keys(Keys.RETURN)
 
@@ -52,17 +52,17 @@ def song_en(song_name):
     #options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
-                            options=options)
+                              options=options)
 
     driver.get("https://www.ultimate-guitar.com/")
     driver.maximize_window()
 
-    agree_button = driver.find_element(By.XPATH,'//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')
+    agree_button = driver.find_element(By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')
     agree_button.click()
 
     try:
         textbox = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.NAME,'value'))
+            EC.presence_of_element_located((By.NAME, 'value'))
         )
         textbox.send_keys(correct_song_name)
         textbox.send_keys(Keys.RETURN)
@@ -72,15 +72,17 @@ def song_en(song_name):
 
     try:
         time.sleep(5)
-        chords_button = WebDriverWait(driver,15).until(
-            EC.presence_of_element_located((By.LINK_TEXT,"Chords"))
+        chords_button = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.LINK_TEXT, "Chords"))
         )     
         chords_button.click()
     except Exception as e:
+        driver.quit()
         print("chords button click error", e)
                               
-    links = driver.find_elements(By.LINK_TEXT,correct_song_name)
+    links = driver.find_elements(By.LINK_TEXT, correct_song_name)
     if not links:
+        driver.quit()
         raise NoSuchElementException
     
     if len(links) <= 1:
@@ -89,8 +91,8 @@ def song_en(song_name):
         links[1].click()
 
     try:
-        agree_button2 = WebDriverWait(driver,5).until(
-            EC.presence_of_element_located((By.CLASS_NAME,'css-197f1ny'))
+        agree_button2 = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'css-197f1ny'))
         )
         agree_button2.click()
     except Exception:

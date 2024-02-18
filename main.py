@@ -15,9 +15,9 @@ def artist_button_push():
     artist = gui.search_textbox.get()
     this_artist_id = spotifyAPI.get_artist_id(spotifyAPI.token, artist)
     gui.search_textbox.delete(0,gui.tkinter.END)
-    songs_array = spotifyAPI.get_artist_top_tracks(spotifyAPI.token,this_artist_id)
+    songs_array = spotifyAPI.get_artist_top_tracks(spotifyAPI.token, this_artist_id)
 
-    top_songs = gui.customtkinter.CTkLabel(gui.central_frame, font=(None,24),text="")
+    top_songs = gui.customtkinter.CTkLabel(gui.central_frame, font=(None,24), text="")
     array_text = '\n'.join(_ for _ in songs_array)
     top_songs.configure(text=array_text)
     top_songs.pack(expand=True)
@@ -25,7 +25,7 @@ def artist_button_push():
     choice_combobox = gui.customtkinter.CTkComboBox(gui.central_frame, values=songs_array)
     choice_combobox.pack(pady=5)
 
-    choice_button = gui.customtkinter.CTkButton(gui.central_frame,text="Choose")
+    choice_button = gui.customtkinter.CTkButton(gui.central_frame, text="Choose")
     choice_button.pack(pady=10)
     
     def choice_button_push():
@@ -40,10 +40,15 @@ def search_for_song_main(song_name):
     for widget in gui.central_frame.winfo_children():
         widget.destroy()
 
-    central_frame2 = gui.customtkinter.CTkScrollableFrame(gui.central_frame,fg_color="#383b39")
-    central_frame2.pack(fill="both",expand=True,pady=3,padx=3)
+    central_frame2 = gui.customtkinter.CTkScrollableFrame(gui.central_frame, fg_color="#383b39")
+    central_frame2.pack(fill="both",
+                        expand=True,
+                        pady=3,
+                        padx=3)
+    
     song_url = youtubeAPI.get_youtube_link(song_name)
     print(song_url)
+    
     if(helpers.is_cyrillic_or_latin(song_name) == "Cyrillic"):
         correct_song_name = song_name[0].upper() + song_name[1:]
         lyrics = database.get_song_from_db(correct_song_name)
@@ -103,6 +108,12 @@ def search_for_song_main(song_name):
                                                         text_color='white',
                                                         font=('Helvetica',23))
                 text_label.pack(expand=True)
+            except Exception:
+                text_label = gui.customtkinter.CTkLabel(central_frame2,
+                                                        text="Song could not be found or there was an error while trying to find it! Please try again!",
+                                                        text_color='white',
+                                                        font=('Helvetica',23))
+                text_label.pack(expand=True)
     else:
         text_label = gui.customtkinter.CTkLabel(central_frame2,
                                                 text="Song name doesn't start with a letter! Please try again!",
@@ -116,7 +127,7 @@ def song_button_push():
     
 
 def upload_button_push():
-    filetypes=(("Mp3 Files", "*.mp3"),)
+    filetypes = (("Mp3 Files", "*.mp3"),)
     filepath = gui.filedialog.askopenfilename(title="Open a file",
                                               initialdir='/GitHub/InstaChord',
                                               filetypes=filetypes)

@@ -6,7 +6,7 @@ client_id = "7036a820bf15467492ae929f2f064efa"
 client_secret = "7d44fd435fe54739bee8c4d205b2ae4b"
 
 def get_token():
-    auth_string = client_id +':'+ client_secret
+    auth_string = client_id + ':' + client_secret
     auth_bytes = auth_string.encode("utf-8")
     auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
 
@@ -16,7 +16,7 @@ def get_token():
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     data = {"grant_type": "client_credentials"}
-    result = post(url,headers=headers,data=data)
+    result = post(url, headers=headers, data=data)
     json_result = json.loads(result.content)
     token = json_result["access_token"]
     return token
@@ -42,7 +42,7 @@ def get_artist_top_tracks(token, artist_id):
     json_result = json.loads(result.content)['tracks']
     result_array = []
     for idx,song in enumerate(json_result):
-        result_array.append(f"{idx+1}. {song['name']}")
+        result_array.append(f"{idx+1}.{song['name']}")
     return result_array
     
 
