@@ -19,4 +19,8 @@ Screenshots fom the app:
 
 
 
-DISCLAIMER: When searching for a bulgarian song the input string is case sensitive(only the first letter of the song's name, a month's name or a person's name should be capital). For using the song recognition function the songs must be in .mp3 format!
+DISCLAIMER: 
+
+-Keep in mind that if you're searching for a song that's not already cached in the database, the app might take some time to find it.
+-When searching for a bulgarian song the input string is case sensitive(only the first letter of the song's name, a month's name or a person's name should be capital). 
+-For using the song recognition function the songs must be in .mp3 format!
