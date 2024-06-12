@@ -7,9 +7,9 @@ Screenshots fom the app:
 -Main screen:
 ![main_screen](https://github.com/momouzunov2003/InstaChord/assets/115097765/6c2cf25a-c1cd-4a32-91af-3955760f8567)
 -Searching for an artist:
-![artist_result](https://github.com/momouzunov2003/InstaChord/assets/115097765/20964a4c-6b4b-47f4-8c1a-b60366193d24)
 ![artist1](https://github.com/momouzunov2003/InstaChord/assets/115097765/a50ea6c5-fbc7-4e80-9171-1219f955d6b9)
 ![artist2](https://github.com/momouzunov2003/InstaChord/assets/115097765/2a751c4b-92c5-4d22-b787-abdbbd522578)
+![artist_result](https://github.com/momouzunov2003/InstaChord/assets/115097765/20964a4c-6b4b-47f4-8c1a-b60366193d24)
 -Searching for an exact song:
 ![song1](https://github.com/momouzunov2003/InstaChord/assets/115097765/cef3669b-e97d-47ca-8040-0ec0ad50af3e)
 ![songbg](https://github.com/momouzunov2003/InstaChord/assets/115097765/266aaebb-09ee-423e-86e3-66ed99613932)
