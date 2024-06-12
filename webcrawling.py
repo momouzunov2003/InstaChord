@@ -49,7 +49,7 @@ def song_en(song_name):
     options = Options()
     options.add_experimental_option("detach", True)
     #options.add_extension("uBlock-Origin.crx")
-    #options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                               options=options)
